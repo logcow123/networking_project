@@ -1,8 +1,8 @@
 # CSE 310 - Sprint Time Log
 
-Name:
+Name: Logan Cowley
 
-Sprint #:
+Sprint #: 2
 
 ## Instructions
 
@@ -26,7 +26,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 
 |Date      |Start Time|Category|Description                                 |Total Minutes|
 |----------|----------|:------:|--------------------------------------------|:-----------:|
-|          |          |        |                                            |             |
+|5/29/25   |3:40      |IM      |Research and created an Echo server         |  1 H 30 M   |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
