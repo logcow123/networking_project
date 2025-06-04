@@ -26,10 +26,12 @@ The expected minimum amount of time each Sprint for each category is as follows:
 
 |Date      |Start Time|Category|Description                                 |Total Minutes|
 |----------|----------|:------:|--------------------------------------------|:-----------:|
+|5/28/25   |2:00      |MTG     |Planning Meeting                            |  1 Hour     |
 |5/29/25   |3:40      |IM      |Research and created an Echo server         |  1 H 30 M   |
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
+|5/30/25   |2:00      |MTG     |Stand Up Meeting                            |  1 Hour     |
+|6/3/25    |2:00      |TP      |Finished Database Desgin and implimented it |  1 Hour     |
+|6/4/25    |12:00     |IM      |Made a server that connects multiple clients|  2 Hours    |
+|6/4/25    |2:00      |MTG     |Team Review Meeting                         |  1 Hour     |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 
