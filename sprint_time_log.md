@@ -35,6 +35,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |6/5/25    |6:00      |IM      |Created a Global Messaging System           |  1 Hour     |
 |6/5/25    |10:00     |IM      |Added Private Messaging                     |  1 Hour     |
 |6/6/25    |9:00      |IM      |Made a Hangman game for the Server          |  1 Hour     |
+|6/6/25    |11:30     |IM      |Fixed some bugs with Hangman                |  1 Hour     |
 
 _Note: Add more rows as needed._
 

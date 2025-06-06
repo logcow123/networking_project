@@ -1,5 +1,6 @@
 import threading
 
+VALID_LETTERS = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
 class hangman(threading.Thread):
     def __init__(self, guess, guess_queue, hang_lock, global_queue, user):
@@ -14,6 +15,10 @@ class hangman(threading.Thread):
 
     def run(self):
         acquired = self.lock.acquire(blocking=False)
+        self.queue.put(None)
+        empty_queue = 1
+        while empty_queue != None:
+            empty_queue = self.queue.get()
         if acquired:
             self.gq.put((f"{self.guess.return_word()}\n GUESSES:{self.guesses}", "++HANGMAN++"))
             while self.game:
@@ -23,9 +28,9 @@ class hangman(threading.Thread):
                     self.guesses -= 1
                 if self.guess.check_win() == True:
                     self.gq.put((f"CONGRATS YOU GUESSED:\n{self.guess.return_word()}\n IN {6 - self.guesses} GUESSES", "++HANGMAN++"))
-                    self.game == False
-                elif self.guesses == 0:
+                    self.game = False
 
+                elif self.guesses == 0:
                     self.gq.put((f"The Word Was:\n{self.guess.get_word()}", "++HANGMAN++"))
                     self.game = False
                 else:
@@ -39,7 +44,7 @@ class word():
     def __init__(self, word):
         self.word = []
         for let in word:
-            self.word.append(letter(let))
+            self.word.append(letter(let, VALID_LETTERS))
     
     def return_word(self):
         word_string = ""
@@ -55,10 +60,12 @@ class word():
     
     def guess_let(self,let):
         worked = False
-        for letter in self.word:
-            if let.upper() == letter.get_let():
-                worked = letter.unhide()
-        return worked
+        if let.upper() in VALID_LETTERS:
+            for letter in self.word:
+                if let.upper() == letter.get_let():
+                    worked = letter.unhide()
+            return worked
+        return True
     
     def check_win(self):
         won = True
@@ -68,12 +75,14 @@ class word():
                 won = False
         return won
         
-        
-
+    
 class letter():
-    def __init__(self, let):
+    def __init__(self, let, valid_letters=VALID_LETTERS):
         self.let = let.upper()
-        self.hidden = True
+        if self.let in valid_letters:
+            self.hidden = True
+        else:
+            self.hidden = False
 
     def return_status(self):
         return self.hidden
