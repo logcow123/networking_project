@@ -32,7 +32,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |6/3/25    |2:00      |TP      |Finished Database Desgin and implimented it |  1 Hour     |
 |6/4/25    |12:00     |IM      |Made a server that connects multiple clients|  2 Hours    |
 |6/4/25    |2:00      |MTG     |Team Review Meeting                         |  1 Hour     |
-|          |          |        |                                            |             |
+|6/5/25    |6:00      |IM      |Created a Global Messaging System           |  1 Hour     |
 |          |          |        |                                            |             |
 
 _Note: Add more rows as needed._

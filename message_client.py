@@ -2,11 +2,11 @@ import socket
 import client_recvr as cr
 
 HOST = "127.0.0.1"
-PORT = 65462
+PORT = 65460
 HEADER = 64
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!DISCONNECT"
-GLOBAL_FLAG = "!GLOBAL"
+ECHO_FLAG = "!ECHO"
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
