@@ -3,6 +3,7 @@ import threading
 import queue
 import global_handler as gh
 import random
+import hangman as hang
 
 HOST = "127.0.0.1"
 PORT = 65460
@@ -11,13 +12,14 @@ FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!DISCONNECT"
 ECHO_FLAG = "!ECHO"
 PRIVATE_MESSAGE_FLAG = "!PM"
+HANGMAN_FLAG = "!HANG"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
 
-def handle_client(conn, addr, queue, conn_dict, username):
+def handle_client(conn, addr, gqueue, conn_dict, username, guess_queue, hang_lock):
     print(f"[NEW CONNECTION] {addr}||{username} connected")
-    queue.put((f"{username} Connected!", "SERVER"))
+    gqueue.put((f"{username} Connected!", "SERVER"))
     connected = True
     while connected:
         msg = recv_msg(conn)
@@ -27,7 +29,7 @@ def handle_client(conn, addr, queue, conn_dict, username):
             connected = False
             print(f"[DISCONNECT] {addr}||{username} disconnected")
             gh.send_msg(DISCONNECT_MESSAGE, conn)
-            queue.put((f"{username} Disconnected", "SERVER"))
+            gqueue.put((f"{username} Disconnected", "SERVER"))
         elif(msg == ECHO_FLAG):
             gh.send_msg("Message:", conn)
             msg = recv_msg(conn)
@@ -37,12 +39,23 @@ def handle_client(conn, addr, queue, conn_dict, username):
             name = recv_msg(conn).strip()
             if name in conn_dict.keys():
                 msg = recv_msg(conn)
-                queue.put((msg, username, name))
+                gqueue.put((msg, username, name))
             else:
                 gh.send_msg("Not A Valid Username!", conn)
-
+        elif(msg == HANGMAN_FLAG):
+            gh.send_msg("what Word?", conn)
+            word = recv_msg(conn).strip()
+            allowed = True
+            for let in word:
+                if let == ' ':
+                    allowed = False
+            if allowed:
+                game = hang.hangman(word, guess_queue, hang_lock, gqueue, username)
+                game.start()
+        elif(len(msg) == 1):
+            guess_queue.put(msg)
         else:
-            queue.put((msg, username))
+            gqueue.put((msg, username))
 
     conn_dict.pop(username)
     conn.close()
@@ -54,6 +67,8 @@ def start():
 
     active_conn_dict = {}
     global_queue = queue.Queue()
+    guess_queue = queue.Queue()
+    hang_lock = threading.Lock()
 
     global_hand = gh.global_handler(global_queue, active_conn_dict)
 
@@ -67,7 +82,7 @@ def start():
         while username in active_conn_dict.keys():
             username = get_rand_name(names)
         active_conn_dict[username] = conn
-        thread = threading.Thread(target=handle_client, args=(conn, addr, global_queue, active_conn_dict, username))
+        thread = threading.Thread(target=handle_client, args=(conn, addr, global_queue, active_conn_dict, username, guess_queue, hang_lock))
         thread.start()
         print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 2}")
     
