@@ -1,4 +1,5 @@
 import socket
+import client_recvr as cr
 
 HOST = "127.0.0.1"
 PORT = 65462
@@ -8,7 +9,22 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 GLOBAL_FLAG = "!GLOBAL"
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((HOST, PORT))
+
+def main():
+    pass
+    client.connect((HOST, PORT))
+    recvr = cr.client_recvr(client)
+    recvr.start()
+
+    connected = True
+    while connected:
+        msg = input("")
+        send_msg(msg)
+        if msg == DISCONNECT_MESSAGE:
+            connected = False
+    recvr.join()
+
+
 
 def send_msg(msg):
     message = msg.encode(FORMAT)
@@ -19,7 +35,5 @@ def send_msg(msg):
     client.send(send_length)
     client.send(message)
 
-input("Wait for GLobal SEND")
-send_msg(GLOBAL_FLAG)
-print(client.recv(1024).decode(FORMAT))
-print(client.recv(1024).decode(FORMAT))
+if __name__ == "__main__":
+    main()

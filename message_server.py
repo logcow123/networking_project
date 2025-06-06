@@ -17,15 +17,17 @@ def handle_client(conn, addr, queue, conn_set):
     print(f"[NEW CONNECTION] {addr} connected")
     connected = True
     while connected:
-        msg_length = conn.recv(HEADER).decode(FORMAT)
-        if msg_length:
-            msg_length = int(msg_length)
-            msg = conn.recv(msg_length).decode(FORMAT)
-            print(f"[{addr}] {msg}")
-            if (msg == DISCONNECT_MESSAGE):
-                connected = False
-            elif(msg == GLOBAL_FLAG):
-                queue.put(("This Is MY global MSG", addr))
+        msg = recv_msg(conn)
+        print(f"[{addr}] {msg}")
+        
+        if (msg == DISCONNECT_MESSAGE):
+            connected = False
+        elif(msg == GLOBAL_FLAG):
+            gh.send_msg("Enter Your Global Message:\n", conn)
+            msg = recv_msg(conn)
+            queue.put((msg, addr))
+        else:
+            gh.send_msg(f"[SERVER] you Said: {msg}\n", conn)
     conn_set.remove(conn)
     conn.close()
 
@@ -48,6 +50,12 @@ def start():
         thread.start()
         print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 2}")
     
+def recv_msg(conn):
+    msg_length = conn.recv(HEADER).decode(FORMAT)
+    if msg_length:
+        msg_length = int(msg_length)
+        msg = conn.recv(msg_length).decode(FORMAT)
+    return msg
 
 
 

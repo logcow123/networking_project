@@ -1,6 +1,7 @@
 import threading
 
 FORMAT = "utf-8"
+HEADER = 64
 
 class global_handler(threading.Thread):
     def __init__(self, queue, active_conn):
@@ -15,7 +16,16 @@ class global_handler(threading.Thread):
             msg = self.queue.get() 
             if msg:
                 for conn in self.active_conns:
-                    conn.send(f"[GLOABAL from {msg[1]}] {msg[0]}".encode(FORMAT))
+                    send_msg(f"[{msg[1]}]SAID: ,{msg[0]}\n", conn)
             else:
                 break
                    
+def send_msg(msg, conn):
+    message = msg.encode(FORMAT)
+    msg_length = len(message)
+    send_length = str(msg_length).encode(FORMAT)
+    send_length += b' ' * (HEADER - len(send_length))
+
+    conn.send(send_length)
+    conn.send(message)
+    
