@@ -16,5 +16,5 @@ Pie_Thon
 Sea_Sharp
 Peter_Griffin
 Guess_Who
-Brother_MacBeth
+Chad_MacBeth
 Mac_Big

@@ -3,12 +3,12 @@ import threading
 import queue
 import global_handler as gh
 import random
-import hangman as hang
 
 HOST = "127.0.0.1"
 PORT = 65460
 HEADER = 64
 FORMAT = "utf-8"
+
 DISCONNECT_MESSAGE = "!DISCONNECT"
 ECHO_FLAG = "!ECHO"
 PRIVATE_MESSAGE_FLAG = "!PM"

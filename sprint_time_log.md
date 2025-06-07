@@ -36,6 +36,8 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |6/5/25    |10:00     |IM      |Added Private Messaging                     |  1 Hour     |
 |6/6/25    |9:00      |IM      |Made a Hangman game for the Server          |  1 Hour     |
 |6/6/25    |11:30     |IM      |Fixed some bugs with Hangman                |  1 Hour     |
+|6/6/25    |2:00      |MTG     |Individual Review Meeting                   |  1 Hour     |
+|6/7/25    |3:00      |IM      |Created Video and sumbmitted Project        |  1 Hour     |
 
 _Note: Add more rows as needed._
 
@@ -43,7 +45,7 @@ _Note: Add more rows as needed._
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         |                          |
-|TP - Team Project              |                          |
-|MTG - Class Meetings           |                          |
-|**TOTAL**                      |                          |
+|IM - Individual Module         |8 Hours 30 Minutes        |
+|TP - Team Project              |1 Hour                    |
+|MTG - Class Meetings           |4 Hours                   |
+|**TOTAL**                      |13 hours 30 Minutes       |

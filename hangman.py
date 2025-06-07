@@ -27,7 +27,7 @@ class hangman(threading.Thread):
                 if correct == False:
                     self.guesses -= 1
                 if self.guess.check_win() == True:
-                    self.gq.put((f"CONGRATS YOU GUESSED:\n{self.guess.return_word()}\n IN {6 - self.guesses} GUESSES", "++HANGMAN++"))
+                    self.gq.put((f"CONGRATS YOU GUESSED:\n{self.guess.return_word()}\nWITH {6 - self.guesses} WRONG GUESSES", "++HANGMAN++"))
                     self.game = False
 
                 elif self.guesses == 0:
